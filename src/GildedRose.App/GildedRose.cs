@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using GildedRoseKata;
 
 namespace GildedRose
@@ -9,9 +8,9 @@ namespace GildedRose
     {
         IList<Item> Items;
 
-        public GildedRose(IList<Item> Items)
+        public GildedRose(IList<Item> items)
         {
-            this.Items = Items;
+            this.Items = items;
         }
 
         public void ProcessItems()
@@ -33,67 +32,60 @@ namespace GildedRose
 
         private static void UpdateItemQuality(Item item)
         {
-            if (IsBasicItem(item.Name))
+            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
             {
-                UpdateBasicItemQuality(item);
+                UpdateBackstagePassItemQuality(item);
                 return;
             }
 
-            if (item.Quality < 50)
+            if (item.Name == "Aged Brie")
             {
-                item.Quality += 1;
-
-                if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (item.SellIn < 10 && item.Quality < 50)
-                    {
-                        item.Quality += 1;
-                    }
-
-                    if (item.SellIn < 5 && item.Quality < 50)
-                    {
-                        item.Quality += 1;
-                    }
-                }
+                UpdateAppreciatingItemQuality(item);
+                return;
             }
+
+            if (item.Name == "Sulfuras, Hand of Ragnaros")
+            {
+                return;
+            }
+            
+            UpdateBasicItemQuality(item);
+        }
+
+        private static void UpdateAppreciatingItemQuality(Item item)
+        {
+            if (item.Quality is < 0)
+                return;
+            
+            var modifier = item.SellIn < 0 ? 2 : 1;
+            item.Quality = Math.Min(item.Quality + modifier, 50);
+        }
+
+        private static void UpdateBackstagePassItemQuality(Item item)
+        {
+            if (item.Quality is < 0)
+                return;
 
             if (item.SellIn < 0)
             {
-                if (item.Name != "Aged Brie")
-                {
-                    if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
-                    {
-                        if (item.Quality > 0 && item.Name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            item.Quality -= 1;
-                        }
-                    }
-                    else
-                    {
-                        item.Quality -= item.Quality;
-                    }
-                }
-                else
-                {
-                    if (item.Quality < 50)
-                    {
-                        item.Quality += 1;
-                    }
-                }
+                item.Quality = 0;
+                return;
             }
+
+            var modifier = 1;
+            if (item.SellIn < 10) modifier++;
+            if (item.SellIn < 5) modifier++;
+
+            item.Quality = Math.Min(item.Quality + modifier, 50);
         }
 
         private static void UpdateBasicItemQuality(Item item)
         {
-            if (item.Quality < 0) return;
+            if (item.Quality < 0)
+                return;
+
             var modifier = item.SellIn < 0 ? -2 : -1;
             item.Quality = Math.Max(item.Quality + modifier, 0);
-        }
-
-        private static bool IsBasicItem(string name)
-        {
-            string[] nonBasicItems = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros"];
-            return !nonBasicItems.Contains(name);
         }
     }
 }
