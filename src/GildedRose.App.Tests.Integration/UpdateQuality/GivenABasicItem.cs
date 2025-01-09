@@ -12,10 +12,10 @@ public class GivenABasicItem
         var expectedSellIn = sellIn - 1;
 
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRoseKata.GildedRose(items);
+        var app = new GildedRose(items);
 
         //When
-        app.UpdateQuality();
+        app.ProcessItems();
 
         //Then
         Assert.Equal(expectedSellIn, items[0].SellIn);
@@ -29,10 +29,10 @@ public class GivenABasicItem
         var expectedQuality = quality - 1;
 
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRoseKata.GildedRose(items);
+        var app = new GildedRose(items);
 
         //When
-        app.UpdateQuality();
+        app.ProcessItems();
 
         //Then
         Assert.Equal(expectedQuality, items[0].Quality);
@@ -46,10 +46,10 @@ public class GivenABasicItem
         var expectedSellIn = sellIn - 1;
 
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRoseKata.GildedRose(items);
+        var app = new GildedRose(items);
 
         //When
-        app.UpdateQuality();
+        app.ProcessItems();
 
         //Then
         Assert.Equal(expectedSellIn, items[0].SellIn);
@@ -63,10 +63,10 @@ public class GivenABasicItem
         var expectedQuality = quality - 2;
 
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRoseKata.GildedRose(items);
+        var app = new GildedRose(items);
 
         //When
-        app.UpdateQuality();
+        app.ProcessItems();
 
         //Then
         Assert.Equal(expectedQuality, items[0].Quality);
@@ -80,10 +80,10 @@ public class GivenABasicItem
         var expectedQuality = 0;
 
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRoseKata.GildedRose(items);
+        var app = new GildedRose(items);
 
         //When
-        app.UpdateQuality();
+        app.ProcessItems();
 
         //Then
         Assert.Equal(expectedQuality, items[0].Quality);

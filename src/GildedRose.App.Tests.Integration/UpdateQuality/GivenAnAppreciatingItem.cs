@@ -12,10 +12,10 @@ public class GivenAnAppreciatingItem
         var expectedQuality = quality + 1;
         
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRoseKata.GildedRose(items);
+        var app = new GildedRose(items);
             
         //When
-        app.UpdateQuality();
+        app.ProcessItems();
             
         //Then
         Assert.Equal(expectedQuality, items[0].Quality);
@@ -29,10 +29,10 @@ public class GivenAnAppreciatingItem
         var expectedQuality = quality + 2;
         
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRoseKata.GildedRose(items);
+        var app = new GildedRose(items);
             
         //When
-        app.UpdateQuality();
+        app.ProcessItems();
             
         //Then
         Assert.Equal(expectedQuality, items[0].Quality);
@@ -46,10 +46,10 @@ public class GivenAnAppreciatingItem
         var expectedQuality = 50;
 
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRoseKata.GildedRose(items);
+        var app = new GildedRose(items);
             
         //When
-        app.UpdateQuality();
+        app.ProcessItems();
             
         //Then
         Assert.Equal(expectedQuality, items[0].Quality);

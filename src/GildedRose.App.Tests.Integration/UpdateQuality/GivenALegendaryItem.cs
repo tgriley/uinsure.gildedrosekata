@@ -13,10 +13,10 @@ public class GivenALegendaryItem
         var expectedSellIn = sellIn;
 
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRoseKata.GildedRose(items);
+        var app = new GildedRose(items);
 
         //When
-        app.UpdateQuality();
+        app.ProcessItems();
 
         //Then
         Assert.Equal(expectedSellIn, items[0].SellIn);
@@ -31,10 +31,10 @@ public class GivenALegendaryItem
         var expectedQuality = 80;
 
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRoseKata.GildedRose(items);
+        var app = new GildedRose(items);
 
         //When
-        app.UpdateQuality();
+        app.ProcessItems();
 
         //Then
         Assert.Equal(expectedQuality, items[0].Quality);
