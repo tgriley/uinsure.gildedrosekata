@@ -32,24 +32,20 @@ namespace GildedRose
 
         private static void UpdateItemQuality(Item item)
         {
-            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+            switch (item.Name)
             {
-                UpdateBackstagePassItemQuality(item);
-                return;
+                case "Backstage passes to a TAFKAL80ETC concert":
+                    UpdateBackstagePassItemQuality(item);
+                    return;
+                case "Aged Brie":
+                    UpdateAppreciatingItemQuality(item);
+                    return;
+                case "Sulfuras, Hand of Ragnaros":
+                    return;
+                default:
+                    UpdateBasicItemQuality(item);
+                    break;
             }
-
-            if (item.Name == "Aged Brie")
-            {
-                UpdateAppreciatingItemQuality(item);
-                return;
-            }
-
-            if (item.Name == "Sulfuras, Hand of Ragnaros")
-            {
-                return;
-            }
-            
-            UpdateBasicItemQuality(item);
         }
 
         private static void UpdateAppreciatingItemQuality(Item item)
