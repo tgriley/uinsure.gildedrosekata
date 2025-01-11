@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using GildedRose.Domain;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GildedRoseKata
 {
@@ -8,6 +10,10 @@ namespace GildedRoseKata
         public static void Main()
         {
             Console.WriteLine("OMGHAI!");
+
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddTransient<IItemProcessor, ItemProcessor>();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
 
             IList<Item> Items = new List<Item>{
                 new Item {Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20},
@@ -37,7 +43,7 @@ namespace GildedRoseKata
 				new Item {Name = "Conjured Mana Cake", SellIn = 3, Quality = 6}
             };
 
-            var app = new GildedRose.GildedRose(Items);
+            var app = new GildedRose.GildedRose(Items, serviceProvider.GetService<IItemProcessor>());
 
             for (var i = 0; i < 31; i++)
             {

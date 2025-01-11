@@ -1,4 +1,5 @@
-﻿using GildedRoseKata;
+﻿using GildedRose.Domain;
+using GildedRoseKata;
 
 namespace GildedRose.Tests.Unit.UpdateQuality;
 
@@ -13,7 +14,7 @@ public class GivenALegendaryItem
         var expectedSellIn = sellIn;
 
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRose(items);
+        var app = InstantiateGildedRose(items);
 
         //When
         app.ProcessItems();
@@ -31,12 +32,17 @@ public class GivenALegendaryItem
         var expectedQuality = 80;
 
         var items = new List<Item> { new() { Name = name, SellIn = sellIn, Quality = quality } };
-        var app = new GildedRose(items);
+        var app = InstantiateGildedRose(items);
 
         //When
         app.ProcessItems();
 
         //Then
         Assert.Equal(expectedQuality, items[0].Quality);
+    }
+    
+    private static GildedRose InstantiateGildedRose(List<Item> items)
+    {
+        return new GildedRose(items, new ItemProcessor());
     }
 }
