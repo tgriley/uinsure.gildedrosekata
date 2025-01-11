@@ -7,7 +7,6 @@
 
         <IsPackable>false</IsPackable>
         <IsTestProject>true</IsTestProject>
-        <RootNamespace>GildedRose.Tests.Unit</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,7 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\GildedRose.App\GildedRose.App.csproj" />
+      <ProjectReference Include="..\GildedRose.Domain\GildedRose.Domain.csproj" />
     </ItemGroup>
 
 </Project>

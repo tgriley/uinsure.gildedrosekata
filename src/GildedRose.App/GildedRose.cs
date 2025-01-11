@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using GildedRose.Domain;
 using GildedRoseKata;
 
 namespace GildedRose
 {
     public class GildedRose
     {
+        private ItemQualityProcessor _itemQualityProcessor;
         IList<Item> Items;
 
         public GildedRose(IList<Item> items)
         {
-            this.Items = items;
+            Items = items;
+            _itemQualityProcessor = new ItemQualityProcessor();
         }
 
         public void ProcessItems()
@@ -22,7 +25,7 @@ namespace GildedRose
             }
         }
 
-        private static void UpdateItemSellIn(Item item)
+        private void UpdateItemSellIn(Item item)
         {
             if (item.Name != "Sulfuras, Hand of Ragnaros")
             {
@@ -30,58 +33,24 @@ namespace GildedRose
             }
         }
 
-        private static void UpdateItemQuality(Item item)
+        private void UpdateItemQuality(Item item)
         {
+            
             switch (item.Name)
             {
                 case "Backstage passes to a TAFKAL80ETC concert":
-                    UpdateBackstagePassItemQuality(item);
+                    item.Quality = _itemQualityProcessor.UpdateBackstagePassItemQuality(item.Quality, item.SellIn);
                     return;
                 case "Aged Brie":
-                    UpdateAppreciatingItemQuality(item);
+                    item.Quality = _itemQualityProcessor.UpdateAppreciatingItemQuality(item.Quality, item.SellIn);
                     return;
                 case "Sulfuras, Hand of Ragnaros":
+                    item.Quality = _itemQualityProcessor.UpdateLegendaryItemQuality(item.Quality, item.SellIn);
                     return;
                 default:
-                    UpdateBasicItemQuality(item);
+                    item.Quality = _itemQualityProcessor.UpdateBasicItemQuality(item.Quality, item.SellIn);
                     break;
             }
-        }
-
-        private static void UpdateAppreciatingItemQuality(Item item)
-        {
-            if (item.Quality is < 0)
-                return;
-            
-            var modifier = item.SellIn < 0 ? 2 : 1;
-            item.Quality = Math.Min(item.Quality + modifier, 50);
-        }
-
-        private static void UpdateBackstagePassItemQuality(Item item)
-        {
-            if (item.Quality is < 0)
-                return;
-
-            if (item.SellIn < 0)
-            {
-                item.Quality = 0;
-                return;
-            }
-
-            var modifier = 1;
-            if (item.SellIn < 10) modifier++;
-            if (item.SellIn < 5) modifier++;
-
-            item.Quality = Math.Min(item.Quality + modifier, 50);
-        }
-
-        private static void UpdateBasicItemQuality(Item item)
-        {
-            if (item.Quality < 0)
-                return;
-
-            var modifier = item.SellIn < 0 ? -2 : -1;
-            item.Quality = Math.Max(item.Quality + modifier, 0);
         }
     }
 }

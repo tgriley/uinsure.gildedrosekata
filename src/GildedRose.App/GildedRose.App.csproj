@@ -6,4 +6,8 @@
     <StartupObject>GildedRoseKata.Program</StartupObject>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GildedRose.Domain\GildedRose.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
