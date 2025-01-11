@@ -47,6 +47,9 @@ namespace GildedRose
                 case "Sulfuras, Hand of Ragnaros":
                     item.Quality = _itemQualityProcessor.UpdateLegendaryItemQuality(item.Quality, item.SellIn);
                     return;
+                case "Conjured Mana Cake":
+                    item.Quality = _itemQualityProcessor.UpdateConjuredItemQuality(item.Quality, item.SellIn);
+                    return;
                 default:
                     item.Quality = _itemQualityProcessor.UpdateBasicItemQuality(item.Quality, item.SellIn);
                     break;

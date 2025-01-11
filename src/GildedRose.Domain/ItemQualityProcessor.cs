@@ -36,4 +36,13 @@ public class ItemQualityProcessor
     {
         return quality;
     }
+
+    public int UpdateConjuredItemQuality(int quality, int sellIn)
+    {
+        if (quality < 0)
+            return 0;
+
+        var modifier = sellIn < 0 ? -4 : -2;
+        return Math.Max(quality + modifier, 0);
+    }
 }

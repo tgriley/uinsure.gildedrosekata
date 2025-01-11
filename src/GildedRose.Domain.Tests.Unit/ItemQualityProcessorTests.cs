@@ -56,6 +56,20 @@ public class ItemQualityProcessorTests
     }
     
     [Theory]
+    [InlineData(-1,1, 0)]
+    [InlineData(10,1, 8)]
+    [InlineData(10,0, 8)]
+    [InlineData(10,-1, 6)]
+    public void GivenProvidedQualityAndSellIn_WhenUpdateConjuredItemQualityIsCalled_ThenExpectedValueIsReturned(int quality, int sellIn, int expectedQuality)
+    {
+        //When
+        var result = ItemQualityProcessor.UpdateConjuredItemQuality(quality, sellIn);
+        
+        //Then
+        Assert.Equal(expectedQuality, result);
+    }
+    
+    [Theory]
     [InlineData(80,1, 80)]
     [InlineData(1,1, 1)]
     [InlineData(1,0, 1)]
